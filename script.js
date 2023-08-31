@@ -33,16 +33,40 @@ const gameBoard = (() => {
   const draw = () => {
     document.querySelector("#winner-placeholder").innerHTML = `Draw!`;
     winner = "Draw";
+    reset();
   };
   const setWinner = (playerName) => {
     document.querySelector(
       "#winner-placeholder"
     ).innerHTML = `${playerName} is the Winner!`;
     winner = playerName;
+    reset();
+  };
+
+  const reset = () => {
+    if (winner) {
+      const commentPlaceholder = `
+        <button id="reset">Again?</button>
+        `;
+      document.querySelector("#comment-placeholder").innerHTML =
+        commentPlaceholder;
+      document.querySelector("#reset").addEventListener("click", () => {
+        document.querySelector("#winner-placeholder").innerHTML = "";
+        document.querySelector("#comment-placeholder").innerHTML = "";
+        playerTurn = player1;
+        board = new Array(9).fill(undefined);
+        winner = undefined;
+        console.log(board);
+      });
+      document.querySelectorAll("button.spot").forEach((spot) => {
+        spot.innerHTML = "&nbsp";
+      });
+    }
   };
 
   const switchPlayer = () =>
     (playerTurn = playerTurn == player1 ? player2 : player1);
+
   const setMark = (spot) => {
     if (board[spot.dataset.index] === undefined && winner == undefined) {
       spot.innerHTML = playerTurn.getMark();
