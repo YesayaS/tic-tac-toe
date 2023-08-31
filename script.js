@@ -90,7 +90,7 @@ const gameBoard = (() => {
   };
 
   const reset = () => {
-    if (winner == undefined) {
+    if (winner) {
       const commentText = `
         <button id="reset">Again?</button>
         `;
