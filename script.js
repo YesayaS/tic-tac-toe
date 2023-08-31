@@ -28,41 +28,82 @@ document.querySelector("#ready>button").addEventListener("click", () => {
   document.querySelector("#ready").style.display = "None";
 });
 
+const commentPlaceholder = (() => {
+  const placeholder = document.querySelector("#comment-placeholder");
+  const randomCommentText = [
+    "Checkmate in one... Oops.",
+    "Open goal missed again!",
+    "Own goal? Seriously?",
+    "Fumbled that easy catch!",
+    "Triple bogey on par 3...",
+    "Last-minute penalty miss!",
+    "Caught stealing base, ugh.",
+    "Double fault on match point.",
+    "Wide open shot, no score.",
+    "Crashed in final lap, unbelievable.",
+  ];
+  const changeText = (comment) => {
+    placeholder.innerHTML = comment;
+  };
+  const showRandomText = () => {
+    const comment =
+      randomCommentText[Math.floor(Math.random() * randomCommentText.length)];
+    changeText(comment);
+  };
+  return { changeText, showRandomText };
+})();
+
+const winnerPlaceholder = (() => {
+  const placeholder = document.querySelector("#winner-placeholder");
+  const changeText = (comment) => {
+    placeholder.innerHTML = comment;
+  };
+  const showRandomText = (playerName) => {
+    const randomCommentText = [
+      `${playerName} pulled off a miracle...`,
+      `How did ${playerName} manage that win?`,
+      `Inexplicable victory for ${playerName}.`,
+      `${playerName} wins? I'm baffled.`,
+      `Did anyone predict ${playerName} would win?`,
+    ];
+    const comment =
+      randomCommentText[Math.floor(Math.random() * randomCommentText.length)];
+    changeText(comment);
+  };
+  return { changeText, showRandomText };
+})();
+
 const gameBoard = (() => {
   let playerTurn = player1;
   let board = new Array(9).fill(undefined);
   let winner = undefined;
 
   const draw = () => {
-    document.querySelector("#winner-placeholder").innerHTML = `Draw!`;
+    winnerPlaceholder.changeText("Draw");
     winner = "Draw";
     reset();
   };
   const setWinner = (playerName) => {
-    document.querySelector(
-      "#winner-placeholder"
-    ).innerHTML = `${playerName} is the Winner!`;
+    winnerPlaceholder.showRandomText(playerName);
     winner = playerName;
     reset();
   };
 
   const reset = () => {
     if (winner) {
-      const commentPlaceholder = `
+      const commentText = `
         <button id="reset">Again?</button>
         `;
-      document.querySelector("#comment-placeholder").innerHTML =
-        commentPlaceholder;
+      commentPlaceholder.changeText(commentText);
       document.querySelector("#reset").addEventListener("click", () => {
-        document.querySelector("#winner-placeholder").innerHTML = "";
-        document.querySelector("#comment-placeholder").innerHTML = "";
+        winnerPlaceholder.changeText("");
+        commentPlaceholder.changeText("");
         playerTurn = player1;
         board = new Array(9).fill(undefined);
         winner = undefined;
-        console.log(board);
-      });
-      document.querySelectorAll("button.spot").forEach((spot) => {
-        spot.innerHTML = "&nbsp";
+        document.querySelectorAll("button.spot").forEach((spot) => {
+          spot.innerHTML = "&nbsp";
+        });
       });
     }
   };
@@ -74,8 +115,8 @@ const gameBoard = (() => {
     if (board[spot.dataset.index] === undefined && winner == undefined) {
       spot.innerHTML = playerTurn.getMark();
       board[spot.dataset.index] = playerTurn.getName();
-      console.log(board);
       switchPlayer();
+      commentPlaceholder.showRandomText();
     }
   };
 
