@@ -2,9 +2,12 @@ const Player = (name, mark, id) => {
   let playerName = name;
   const changeName = (newName) => {
     const playerLayout = `
-      <div>${newName} playing as "X"</div>
+      <div>${newName} playing as "${mark}"</div>
       `;
     document.querySelector(`div[data-player="${id}"]`).innerHTML = playerLayout;
+    document
+      .querySelector(`div[data-player="${id}"]`)
+      .classList.add(`player-${id}`);
     playerName = newName;
   };
   const getName = () => playerName;

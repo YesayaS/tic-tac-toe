@@ -1,6 +1,7 @@
 * {
   border: 0px solid red;
   margin: 0;
+  font-size: 1rem;
 }
 
 body {
@@ -10,25 +11,27 @@ body {
   min-height: 600px;
   font-family: "Rubik", sans-serif;
 }
-
-button:hover{
-    filter: brightness(0.85);
+button {
+  font-family: "Rubik", sans-serif;
+}
+button:hover {
+  filter: brightness(0.85);
 }
 
-#ready{
-    height: 100vh;
-    width: 100vw;
-    min-width: 800px;
-    min-height: 600px;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(10px);
+#ready {
+  height: 100vh;
+  width: 100vw;
+  min-width: 800px;
+  min-height: 600px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
 }
 
-#ready > button{
-    padding: 5% 10%;
+#ready > button {
+  padding: 5% 10%;
 }
 
 #body-wrap {
@@ -38,11 +41,10 @@ button:hover{
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 3fr 1fr 1fr 9fr;
   justify-content: center;
-  /* align-items: center; */
 }
 
 #header {
-    z-index: 100;
+  z-index: 100;
   grid-column: 1/4;
   padding: 5vh 0px;
   text-align: center;
@@ -50,23 +52,73 @@ button:hover{
   font-weight: 900;
 }
 
-#player-1{
-    z-index: 100;
-    grid-column: 1/2;
+#player-1,
+#player-2 {
+  grid-row: 2/5;
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+  gap: 10px;
 }
 
-#player-2{
-    z-index: 100;
-    grid-column: 3/4;
+#player-1 > input,
+#player-2 > input {
+  text-align: center;
+  font-size: 0.95rem;
+  font-family: "Rubik";
+  padding: 10px;
 }
 
-#player-1, #player-2{
-    grid-row: 2/5;
+#player-1 {
+  z-index: 100;
+  grid-column: 1/2;
+}
+
+#player-2 {
+  text-align: end;
+  z-index: 100;
+  grid-column: 3/4;
+}
+
+.player-1,
+.player-2 {
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.player-1 {
+  background-image: url(src/crow.jpg);
+}
+
+.player-1 > div,
+.player-2 > div {
+  padding: 5px 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 50%);
+}
+
+.player-2 {
+  background-image: url(src/cat.jpg);
+}
+
+#winner-placeholder,
+#comment-placeholder {
+  text-align: center;
+}
+#reset {
+  text-align: center;
+  padding: 10px 15px;
+  border: 1px solid black;
+  background-color: white;
 }
 
 #tictac-layout {
-justify-self: center;
-margin-top: 2vh;
+  justify-self: center;
+  margin-top: 2vh;
   width: max(80%, 250px);
   aspect-ratio: 1;
   display: grid;
@@ -74,4 +126,12 @@ margin-top: 2vh;
   grid-template-rows: repeat(3, 1fr);
   gap: 2px;
   background-color: black;
+}
+
+#tictac-layout > button {
+  background-color: rgba(255, 255, 255, 100%);
+  font-size: 3rem;
+}
+
+#tictac-layout > button:hover {
 }
