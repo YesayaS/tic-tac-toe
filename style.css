@@ -2,6 +2,7 @@
   border: 0px solid red;
   margin: 0;
   font-size: 1rem;
+  font-family: "Rubik", sans-serif;
 }
 
 body {
@@ -9,11 +10,8 @@ body {
   width: 100vw;
   min-width: 800px;
   min-height: 600px;
-  font-family: "Rubik", sans-serif;
 }
-button {
-  font-family: "Rubik", sans-serif;
-}
+
 button:hover {
   filter: brightness(0.85);
 }
@@ -67,6 +65,7 @@ button:hover {
   font-size: 0.95rem;
   font-family: "Rubik";
   padding: 10px;
+  border-bottom: 2px solid black;
 }
 
 #player-1 {
