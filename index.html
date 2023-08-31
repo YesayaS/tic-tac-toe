@@ -13,10 +13,21 @@
     />
   </head>
   <body>
+    <div id="ready"><button>Ready?</button></div>
     <div id="body-wrap">
       <div id="header">TicTacToe</div>
-      <div id="player-1">player 1</div>
-      <div id="player-2">player 2</div>
+      <div id="player-1" data-player="1">
+        <div>
+          <label for="player1-name">Your gamer name</label
+          ><input id="player1-name" type="text" />
+        </div>
+      </div>
+      <div id="player-2" data-player="2">
+        <div>
+          <label for="player2-name">Your gamer name</label
+          ><input id="player2-name" type="text" />
+        </div>
+      </div>
       <div id="winner-placeholder"></div>
       <div id="id=comment-placeholder"></div>
       <div id="tictac-layout">

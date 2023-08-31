@@ -1,11 +1,26 @@
-const Player = (name, mark) => {
+const Player = (name, mark, id) => {
+  const changeName = (newName) => {
+    const playerLayout = `
+      <div>${newName} playing as "X"</div>
+      `;
+    document.querySelector(`div[data-player="${id}"]`).innerHTML = playerLayout;
+    this.name = newName;
+  };
   const getName = () => name;
   const getMark = () => mark;
-  return { getName, getMark };
+  return { getName, getMark, changeName };
 };
 
-const player1 = Player("player1", "X");
-const player2 = Player("player2", "O");
+const player1 = Player("player-1", "X", 1);
+const player2 = Player("player-2", "O", 2);
+
+document.querySelector("#ready>button").addEventListener("click", () => {
+  const player1NewName = document.querySelector("#player1-name").value;
+  const player2NewName = document.querySelector("#player2-name").value;
+  player1.changeName(player1NewName);
+  player2.changeName(player2NewName);
+  document.querySelector("#ready").style.display = "None";
+});
 
 const gameBoard = (() => {
   let playerTurn = player1;
