@@ -84,13 +84,13 @@ const gameBoard = (() => {
     reset();
   };
   const setWinner = (playerName) => {
-    winnerPlaceholder.showRandomText(playerName);
+    if (winner == undefined) winnerPlaceholder.showRandomText(playerName);
     winner = playerName;
     reset();
   };
 
   const reset = () => {
-    if (winner) {
+    if (winner == undefined) {
       const commentText = `
         <button id="reset">Again?</button>
         `;
