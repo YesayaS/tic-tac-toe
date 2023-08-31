@@ -14,14 +14,13 @@ const gameBoard = (() => {
       switchPlayer();
     }
   };
-  return { setMark };
-})();
-
-document.querySelectorAll("button.spot").forEach((spot) => {
-  spot.addEventListener("click", () => {
-    gameBoard.setMark(spot);
+  document.querySelectorAll("button.spot").forEach((spot) => {
+    spot.addEventListener("click", () => {
+      setMark(spot);
+    });
   });
-});
+  return {};
+})();
 
 const player1 = Player("player1", "X");
 const player2 = Player("player2", "O");
