@@ -1,29 +1,79 @@
 const Player = (name, mark) => {
-  const getName = () => console.log(name);
-  const getMark = () => console.log(mark);
+  const getName = () => name;
+  const getMark = () => mark;
   return { getName, getMark };
 };
-
-const gameBoard = (() => {
-  let playerTurn = "X";
-  const switchPlayer = () => (playerTurn = playerTurn == "X" ? "O" : "X");
-  const setMark = (spot) => {
-    if (spot.dataset.mark == "") {
-      spot.innerHTML = playerTurn;
-      spot.dataset.mark = playerTurn;
-      switchPlayer();
-    }
-  };
-  document.querySelectorAll("button.spot").forEach((spot) => {
-    spot.addEventListener("click", () => {
-      setMark(spot);
-    });
-  });
-  return {};
-})();
 
 const player1 = Player("player1", "X");
 const player2 = Player("player2", "O");
 
-player1.getName();
-player2.getName();
+const gameBoard = (() => {
+  let playerTurn = player1;
+  let board = new Array(9).fill(undefined);
+  let winner = undefined;
+
+  const draw = () => {
+    document.querySelector("#winner-placeholder").innerHTML = `Draw!`;
+    winner = "Draw";
+  };
+  const setWinner = (playerName) => {
+    document.querySelector(
+      "#winner-placeholder"
+    ).innerHTML = `${playerName} is the Winner!`;
+    winner = playerName;
+  };
+
+  const switchPlayer = () =>
+    (playerTurn = playerTurn == player1 ? player2 : player1);
+  const setMark = (spot) => {
+    if (board[spot.dataset.index] === undefined && winner == undefined) {
+      spot.innerHTML = playerTurn.getMark();
+      board[spot.dataset.index] = playerTurn.getName();
+      console.log(board);
+      switchPlayer();
+    }
+  };
+
+  document.querySelectorAll("button.spot").forEach((spot) => {
+    spot.addEventListener("click", () => {
+      setMark(spot);
+      for (let i = 0; i < 3; i++) {
+        if (
+          board[i] !== undefined &&
+          board[i] === board[i + 3] &&
+          board[i] === board[i + 6]
+        ) {
+          setWinner(board[i]);
+          break;
+        }
+      }
+      for (let i = 0; i < 7; i += 3) {
+        if (
+          board[i] !== undefined &&
+          board[i] === board[i + 1] &&
+          board[i] === board[i + 2]
+        ) {
+          setWinner(board[i]);
+          break;
+        }
+      }
+      if (
+        (board[0] !== undefined &&
+          board[0] === board[4] &&
+          board[0] === board[8]) ||
+        (board[2] !== undefined &&
+          board[2] === board[4] &&
+          board[2] === board[6])
+      ) {
+        setWinner(board[4]);
+      }
+      if (
+        board.every(
+          (item) => item === player1.getName() || item === player2.getName()
+        )
+      ) {
+        draw();
+      }
+    });
+  });
+})();
