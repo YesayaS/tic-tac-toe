@@ -1,12 +1,13 @@
 const Player = (name, mark, id) => {
+  let playerName = name;
   const changeName = (newName) => {
     const playerLayout = `
       <div>${newName} playing as "X"</div>
       `;
     document.querySelector(`div[data-player="${id}"]`).innerHTML = playerLayout;
-    this.name = newName;
+    playerName = newName;
   };
-  const getName = () => name;
+  const getName = () => playerName;
   const getMark = () => mark;
   return { getName, getMark, changeName };
 };
@@ -15,8 +16,10 @@ const player1 = Player("player-1", "X", 1);
 const player2 = Player("player-2", "O", 2);
 
 document.querySelector("#ready>button").addEventListener("click", () => {
-  const player1NewName = document.querySelector("#player1-name").value;
-  const player2NewName = document.querySelector("#player2-name").value;
+  let player1NewName = document.querySelector("#player1-name").value;
+  let player2NewName = document.querySelector("#player2-name").value;
+  if (player1NewName === "") player1NewName = "player1";
+  if (player2NewName === "") player2NewName = "player2";
   player1.changeName(player1NewName);
   player2.changeName(player2NewName);
   document.querySelector("#ready").style.display = "None";
